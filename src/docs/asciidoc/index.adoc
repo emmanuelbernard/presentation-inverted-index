@@ -241,11 +241,14 @@ gradle -t asciidoctor
 
 With composite builds!
 
+== Performance guide
+
+https://gradle.github.io/performance-guide/
+
 == Thank you!
 
-* Slides and code : https://github.com/melix/gradlesummit2016-jigsaw-gradle
+* Slides and code : https://github.com/melix/finistjug-fast-builds
 * Gradle documentation : http://gradle.org/documentation/
-* State of the module system: http://openjdk.java.net/projects/jigsaw/spec/sotms
 * Follow me: http://twitter.com/CedricChampeau[@CedricChampeau]
 
 Learn more at https://gradle.org[www.gradle.org]

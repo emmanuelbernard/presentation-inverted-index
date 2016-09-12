@@ -1,0 +1,10 @@
+apply plugin: 'org.ajoberstar.github-pages'
+
+githubPages {
+    repoUri = 'git@github.com:melix/gradlesummit2016-jigsaw-gradle.git'
+    pages {
+        from file("$buildDir/asciidoc/revealjs")
+    }
+}
+
+publishGhPages.dependsOn(asciidoctor)

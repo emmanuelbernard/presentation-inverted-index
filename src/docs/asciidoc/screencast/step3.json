@@ -1,0 +1,270 @@
+{
+  "version": 1,
+  "width": 80,
+  "height": 24,
+  "duration": 31.612670,
+  "command": "/bin/bash",
+  "title": "",
+  "env": {
+    "TERM": "xterm",
+    "SHELL": "/bin/bash"
+  },
+  "stdout": [
+    [
+      0.189365,
+      "\u001b[1m\u001b[38;5;10mstep3\u001b(B\u001b[m\u001b(B\u001b[m\u001b[38;5;15m $ \u001b(B\u001b[m"
+    ],
+    [
+      0.571247,
+      "c"
+    ],
+    [
+      0.200088,
+      "a"
+    ],
+    [
+      0.183593,
+      "t"
+    ],
+    [
+      0.159583,
+      " "
+    ],
+    [
+      0.229598,
+      "c"
+    ],
+    [
+      0.138879,
+      "l"
+    ],
+    [
+      0.080603,
+      "i"
+    ],
+    [
+      0.344180,
+      "/"
+    ],
+    [
+      1.569489,
+      "s"
+    ],
+    [
+      0.358367,
+      "r"
+    ],
+    [
+      0.244773,
+      "c/"
+    ],
+    [
+      0.859295,
+      "m"
+    ],
+    [
+      0.079926,
+      "a"
+    ],
+    [
+      0.196778,
+      "in/"
+    ],
+    [
+      0.375325,
+      "j"
+    ],
+    [
+      0.211733,
+      "ava/"
+    ],
+    [
+      1.406467,
+      "c"
+    ],
+    [
+      0.574204,
+      "om/"
+    ],
+    [
+      0.355235,
+      "a"
+    ],
+    [
+      0.198798,
+      "c"
+    ],
+    [
+      0.182098,
+      "me/"
+    ],
+    [
+      0.466353,
+      "G"
+    ],
+    [
+      0.283553,
+      "\u0007"
+    ],
+    [
+      0.552349,
+      "r"
+    ],
+    [
+      0.208144,
+      "\u0007"
+    ],
+    [
+      2.664815,
+      "\u0008\u001b[K"
+    ],
+    [
+      0.202407,
+      "\u0008\u001b[K"
+    ],
+    [
+      0.440392,
+      "cli/"
+    ],
+    [
+      1.172569,
+      "GreeterCli.java "
+    ],
+    [
+      1.669218,
+      "\r\n"
+    ],
+    [
+      0.000956,
+      "package com.acme.cli;\r\n\r\nimport com.acme.Greeter;\r\nimport com.acme.internal.GreeterInternal;\r\n\r\nimport java.io.*;\r\n\r\npublic class GreeterCli {\r\n\r\n    public static void main(String... args) {\r\n    \u0009 try {\r\n\u0009         Greeter greeter = new Greeter();\r\n\u0009         String line;\r\n\u0009"
+    ],
+    [
+      0.000011,
+      "         BufferedReader reader = new BufferedReader(\r\n\u0009         \u0009new InputStreamReader(System.in));\r\n\u0009         while ((line=readName(reader))!=null) {\r\n\u0009             System.out.println(greeter.greet(line));\r\n\u0009         }\r\n\u0009     } catch (Exception e) {\r\n\u0009     \u0009e.printStackTrace();\r\n\u0009     }\r\n\u0009"
+    ],
+    [
+      0.000009,
+      "}\r\n\r\n    private static String readName(BufferedReader reader) throws IOException {\r\n        System.out.print(\"Name\u003e \");\r\n        return GreeterInternal.normalize(reader.readLine());\r\n    }\r\n\r\n}\r\n"
+    ],
+    [
+      0.053942,
+      "\u001b[1m\u001b[38;5;10mstep3\u001b(B\u001b[m\u001b(B\u001b[m\u001b[38;5;15m $ \u001b(B\u001b[m"
+    ],
+    [
+      8.137089,
+      "g"
+    ],
+    [
+      0.059600,
+      "l"
+    ],
+    [
+      0.115164,
+      " "
+    ],
+    [
+      0.136985,
+      "b"
+    ],
+    [
+      0.095082,
+      "u"
+    ],
+    [
+      0.073935,
+      "i"
+    ],
+    [
+      0.242247,
+      "l"
+    ],
+    [
+      0.112312,
+      "d"
+    ],
+    [
+      0.345148,
+      "\r\n"
+    ],
+    [
+      0.321014,
+      "\u001b[0m"
+    ],
+    [
+      0.357635,
+      "\u001b[1m\u003e Connecting to Daemon\u001b[22m"
+    ],
+    [
+      0.102799,
+      "\u001b[22D\u001b[1m\u003e Configuring \u003e 3/3 projects\u001b[22m"
+    ],
+    [
+      0.088167,
+      "\u001b[28D:core:compileMainJarMainJava\r\n:core:mainApiJar\r\n\u001b[1m\u003e Building 14% \u003e :cli:compileMainJarMainJava\u001b[22m"
+    ],
+    [
+      0.143147,
+      "\u001b[44D:cli:compileMainJarMainJava\u001b[0K\r\n:cli:createMainJar\r\n"
+    ],
+    [
+      0.000022,
+      ":cli:mainApiJar\r\n:cli:mainJar\r\n"
+    ],
+    [
+      0.000009,
+      ":cli:assemble\r\n"
+    ],
+    [
+      0.000016,
+      ":cli:check \u001b[33mUP-TO-DATE\u001b[39m\r\n"
+    ],
+    [
+      0.000004,
+      ":cli:build\r\n"
+    ],
+    [
+      0.000017,
+      ":core:createMainJar\r\n"
+    ],
+    [
+      0.000008,
+      ":core:mainJar\r\n"
+    ],
+    [
+      0.000012,
+      ":core:assemble\r\n"
+    ],
+    [
+      0.000028,
+      ":core:check \u001b[33mUP-TO-DATE\u001b[39m\r\n"
+    ],
+    [
+      0.000008,
+      ":core:build\r\n\r\n"
+    ],
+    [
+      0.000018,
+      "BUILD SUCCESSFUL\r\n\r\n"
+    ],
+    [
+      0.000014,
+      "Total time: 0.901 secs\r\n"
+    ],
+    [
+      0.000006,
+      "\u001b[0K"
+    ],
+    [
+      0.067148,
+      "\u001b"
+    ],
+    [
+      0.000010,
+      "[0m"
+    ],
+    [
+      0.368079,
+      "\u001b[1m\u001b[38;5;10mstep3\u001b(B\u001b[m\u001b(B\u001b[m\u001b[38;5;15m $ \u001b(B\u001b[m"
+    ]
+  ]
+}

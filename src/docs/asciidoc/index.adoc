@@ -1,0 +1,253 @@
+= Extremely fast builds with Gradle 3
+Cédric Champeau (@CedricChampeau), Gradle Inc.
+2016-04-22
+:revnumber: {project-version}
+:example-caption!:
+ifndef::imagesdir[:imagesdir: images]
+ifndef::sourcedir[:sourcedir: ../java]
+:deckjs_transition: fade
+:navigation:
+:menu:
+:status:
+:adoctor: http://asciidoctor.org/[Asciidoctor]
+:gradle: http://gradle.org[Gradle]
+
+== Who am I
+
+image::nantes.jpg[background, size=cover]
+
+++++
+<style>
+.asciinema-terminal.font-medium {
+  font-size: 16px;
+}
+</style>
+
+<div class="pictureWrapper">
+   <div class="picture"><img src="images/mini-me.png"></div>
+</div>
+++++
+
+
+[source,groovy]
+----
+speaker {
+    name 'Cédric Champeau'
+    company 'Gradle Inc'
+    oss 'Apache Groovy committer',
+    successes 'Static type checker',
+                    'Static compilation',
+                    'Traits',
+                    'Markup template engine',
+                    'DSLs'
+        failures Stream.of(bugs),
+        twitter '@CedricChampeau',
+        github 'melix',
+        extraDescription '''Groovy in Action 2 co-author
+Misc OSS contribs (Gradle plugins, deck2pdf, jlangdetect, ...)'''
+}
+----
+
+== Agenda
+
+* The Gradle Daemon
+* Profiling
+* Incremental builds
+* Incremental compilation
+* Continuous builds
+* Composite builds
+* Task output cache
+
+== What is Gradle?
+
+* A build tool
+* Cloud Services
+
+== The Gradle daemon
+
+* Long-lived background process
+* Listens and executes build actions
+* Faster startup / execution
+* Enabled by default since 3.0
+
+== The Gradle daemon
+
+=== Cold daemon
+
+image::daemon-keynote-cold.gif[]
+
+=== Warm daemon
+
+image::daemon-keynote-warm.gif[]
+
+== Profiling a build
+
+`gradle --profile`
+
+* Generates a report in the build directory
+* Limited insight
+* Not easily shareable
+* But can already give precious information
+
+== Build scans
+
+[cols="50a,50a"]
+|===
+|
+* First member of the Cloud Services family
+* Insights into your build
+* View and share via URL
+* Debug, optimize and refine
+* Analyze _all_ of your builds
+* Available for free 
+|image:build-scans.png[]
+|===
+
+== Build scan demo
+
+https://scans.gradle.com/s/sample/groovy
+
+== Creating a build scan
+
+=== Apply the build scan plugin
+
+[source,groovy]
+----
+plugins {
+    id 'com.gradle.build-scan' version '1.0'
+}
+
+buildScan {
+    licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+    licenseAgree = 'yes'
+}
+----
+
+=== Run the build
+
+```
+./gradlew -Dscan build
+```
+
+=== Click on the link
+
+```
+:jrubyPrepareGems
+:asciidoctor UP-TO-DATE
+
+BUILD SUCCESSFUL
+
+Total time: 1.132 secs
+
+Publishing build information...
+https://gradle.com/s/v2f5knnujnsx2
+
+```
+
+== Incremental builds
+
+* Gradle is meant for incremental builds
+* `clean` is a waste of time
+* Prepare your builds for incrementalness
+
+=== Example: building a shaded jar
+
+[source,groovy]
+----
+task shadedJar(type: ShadedJar) {
+   jarFile = file("$buildDir/libs/shaded.jar")
+   classpath = configurations.runtime
+   mapping = ['org.apache': 'shaded.org.apache']
+}
+----
+
+* What are the task inputs?
+* What are the task outputs?
+* What if one of them changes?
+
+=== Declaring inputs
+
+[source,groovy]
+----
+@InputFiles
+FileCollection getClasspath() { ... }
+
+@Input
+Map<String, String> getMapping() { ... }
+----
+
+=== Declaring outputs
+
+[source,groovy]
+----
+@OutputFile
+File getJarFile() { ... }
+----
+
+== Incremental compilation
+
+* Given a set of source files
+* Only compile the files which have changed...
+* and their dependencies
+* Language specific
+
+=== Gradle has support for incremental compilation of Java
+
+```
+compileJava {
+    //enable incremental compilation
+    options.incremental = true
+}
+```
+
+== Continuous builds
+
+* Gradle watches for changes in task inputs
+* Re-executes tasks as changes occur
+* Enabled with `-t`
+
+```
+gradle -t asciidoctor
+```
+
+== Composite builds
+
+* _Compose_ various projects as if there were one
+** Each project can live in its own repository
+** Each project has its own Gradle build
+** Composition unites them through _dependency resolution_
+* _Split_ monolithic projects
+** For large multiproject builds, allows splitting them into several pieces
+** Each piece can be versioned independently
+** Developers can _choose_ what subprojects they care about
+
+== Composite builds demo
+
+== Task output cache
+
+* Avoid doing work even after _clean_
+* Share binaries between projects on a single machine
+* Share binaries between projects on a network
+* Backend agnostic
+
+== Task output cache use cases
+
+* Long compile tasks
+* Bisecting
+* Continuous integration
+* Green earth
+
+== Task output cache demo
+
+With composite builds!
+
+== Thank you!
+
+* Slides and code : https://github.com/melix/gradlesummit2016-jigsaw-gradle
+* Gradle documentation : http://gradle.org/documentation/
+* State of the module system: http://openjdk.java.net/projects/jigsaw/spec/sotms
+* Follow me: http://twitter.com/CedricChampeau[@CedricChampeau]
+
+Learn more at https://gradle.org[www.gradle.org]
+
+

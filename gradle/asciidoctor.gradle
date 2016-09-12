@@ -1,0 +1,59 @@
+asciidoctor {
+    dependsOn jrubyPrepareGems,download, copyTheme
+    sources {
+        include 'index.adoc'
+    }
+
+    resources {
+        from(sourceDir) {
+            include 'images/**'
+        }
+        from(downloadDir) {
+            include 'reveal.js/**'
+        }
+    }
+
+    backends 'revealjs'
+
+    attributes 'sourcedir': project.sourceSets.main.java.srcDirs[0],
+            'endpoint-url': 'http://example.org',
+            'source-highlighter': 'highlightjs',
+            'imagesdir': './images',
+            'toc': 'left',
+            'icons': 'font',
+            'setanchors': 'true',
+            'idprefix': '',
+            'idseparator': '-',
+            'basedir': projectDir,
+            'docinfo1': 'true',
+            'project-version': '1.0',
+	    'revealjs_transition':'linear',
+	    'revealjs_history':'true',
+	    'revealjs_slideNumber':'true',
+	    'revealjs_theme': 'summit',
+            'examples': file("${projectDir}/examples")
+
+    options template_dirs: [new File(templateDir, 'asciidoctor-reveal.js-master/templates/slim').absolutePath]
+
+    extensions {
+	inlinemacro (name: "screencast") { parent, target, attributes ->
+                def pid = "player-container-${UUID.randomUUID()}"
+		"""
+<div id="$pid"></div>
+  <script>
+    asciinema_player.core.CreatePlayer('$pid', '${target}.json', { width: 114, height: 24, fontSize: 'medium' });
+  </script>
+""" 
+        }
+    }
+
+    doLast {
+        def html = new File("$buildDir/asciidoc/revealjs/index.html")
+        def fixed = html.text.replace('<section><h1>', '<section data-background="images/summit-intro.png"><h1>')
+        fixed = fixed.replace('<h1>Extremely fast builds with Gradle 3</h1>', '<div id="front-top">FinistJUG</div><div id="front-title">Extremely fast builds with Gradle 3 <br> Cédric Champeau</div><div id="front-date">2016</div>')
+        fixed = fixed.replace('<p><small>Cédric Champeau (@CedricChampeau), Gradle Inc.</small></p>', '')
+        html.withWriter('utf-8') { it.write fixed }
+    }
+
+
+}

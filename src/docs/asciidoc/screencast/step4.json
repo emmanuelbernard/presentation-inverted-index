@@ -1,0 +1,430 @@
+{
+  "version": 1,
+  "width": 80,
+  "height": 24,
+  "duration": 31.736954,
+  "command": "/bin/bash",
+  "title": "",
+  "env": {
+    "TERM": "xterm",
+    "SHELL": "/bin/bash"
+  },
+  "stdout": [
+    [
+      0.187915,
+      "\u001b[1m\u001b[38;5;10mstep4\u001b(B\u001b[m\u001b(B\u001b[m\u001b[38;5;15m $ \u001b(B\u001b[m"
+    ],
+    [
+      1.565374,
+      "c"
+    ],
+    [
+      0.415061,
+      "a"
+    ],
+    [
+      0.381423,
+      "t"
+    ],
+    [
+      0.201696,
+      " "
+    ],
+    [
+      0.206773,
+      "c"
+    ],
+    [
+      0.134292,
+      "o"
+    ],
+    [
+      0.131635,
+      "r"
+    ],
+    [
+      0.066911,
+      "e"
+    ],
+    [
+      0.229607,
+      "/"
+    ],
+    [
+      0.353289,
+      "b"
+    ],
+    [
+      0.237384,
+      "u"
+    ],
+    [
+      0.080968,
+      "i"
+    ],
+    [
+      0.133198,
+      "ld.gradle "
+    ],
+    [
+      0.584689,
+      "\r\n"
+    ],
+    [
+      0.000964,
+      "plugins {\r\n   id 'jvm-component'\r\n   id 'java-lang'\r\n   id 'junit-test-suite'\r\n}\r\n\r\nrepositories { jcenter() }\r\n\r\nmodel {\r\n   components {\r\n       main(JvmLibrarySpec) {\r\n           sources {\r\n\u0009      java {\r\n                 dependencies {\r\n                    module 'org.apache.commons:commons-lang3:3.4'\r\n                 }\r\n              }\r\n           }\r\n           api {\r\n              exports 'com.acme'\r\n           }\r\n       }\r\n   }\r\n}\r\n"
+    ],
+    [
+      0.054180,
+      "\u001b[1m\u001b[38;5;10mstep4\u001b(B\u001b[m\u001b(B\u001b[m\u001b[38;5;15m $ \u001b(B\u001b[m"
+    ],
+    [
+      6.349062,
+      "g"
+    ],
+    [
+      0.096243,
+      "l"
+    ],
+    [
+      0.224035,
+      " "
+    ],
+    [
+      0.187274,
+      "c"
+    ],
+    [
+      0.126937,
+      "o"
+    ],
+    [
+      0.148815,
+      "r"
+    ],
+    [
+      0.069199,
+      "e"
+    ],
+    [
+      0.227231,
+      ":"
+    ],
+    [
+      0.213497,
+      "b"
+    ],
+    [
+      0.185732,
+      "u"
+    ],
+    [
+      0.094483,
+      "i"
+    ],
+    [
+      0.253031,
+      "l"
+    ],
+    [
+      0.119749,
+      "d"
+    ],
+    [
+      0.418923,
+      "\r\n"
+    ],
+    [
+      0.339604,
+      "\u001b[0m"
+    ],
+    [
+      0.361485,
+      "\u001b[1m\u003e Connecting to Daemon\u001b[22m"
+    ],
+    [
+      0.105163,
+      "\u001b[22D\u001b[1m\u003e Building 0% \u003e :core:compileMainJarMainJava\u001b[22m"
+    ],
+    [
+      0.035795,
+      "\u001b[44D:core:compileMainJarMainJava\u001b[0K\r\n"
+    ],
+    [
+      0.000017,
+      ":core:createMainJar\r\n:core:mainApiJar\r\n:core:mainJar\r\n:core:assemble\r\n:core:check \u001b[33mUP-TO-DATE\u001b[39m\r\n"
+    ],
+    [
+      0.000005,
+      ":core:build\r\n\r\n"
+    ],
+    [
+      0.000018,
+      "BUILD SUCCESSFUL\r\n\r\n"
+    ],
+    [
+      0.000017,
+      "Total time: 0.779 secs\r\n"
+    ],
+    [
+      0.000004,
+      "\u001b[0K"
+    ],
+    [
+      0.001675,
+      "\u001b[0m"
+    ],
+    [
+      0.364747,
+      "\u001b[1m\u001b[38;5;10mstep4\u001b(B\u001b[m\u001b(B\u001b[m\u001b[38;5;15m $ \u001b(B\u001b[m"
+    ],
+    [
+      5.860306,
+      "g"
+    ],
+    [
+      0.085445,
+      "l"
+    ],
+    [
+      0.170481,
+      " "
+    ],
+    [
+      0.154448,
+      "c"
+    ],
+    [
+      0.141854,
+      "l"
+    ],
+    [
+      0.077292,
+      "i"
+    ],
+    [
+      0.469802,
+      ":"
+    ],
+    [
+      0.297030,
+      "b"
+    ],
+    [
+      0.145393,
+      "u"
+    ],
+    [
+      0.091601,
+      "i"
+    ],
+    [
+      0.229723,
+      "l"
+    ],
+    [
+      0.103481,
+      "d"
+    ],
+    [
+      0.904493,
+      "\r\n"
+    ],
+    [
+      0.310294,
+      "\u001b[0m"
+    ],
+    [
+      0.356244,
+      "\u001b[1m\u003e Connecting to Daemon\u001b[22m"
+    ],
+    [
+      0.106805,
+      "\u001b[22D\u001b[1m\u003e Building 0% \u003e :core:compileMainJarMainJava\u001b[22m"
+    ],
+    [
+      0.088605,
+      "\u001b[44D:core:compileMainJarMainJava \u001b[33mUP-TO-DATE\u001b[39m\u001b[0K\r\n"
+    ],
+    [
+      0.000010,
+      ":core:mainApiJar \u001b[33mUP-TO-DATE\u001b[39m\r\n:cli:compileMainJarMainJava\r\n"
+    ],
+    [
+      0.000930,
+      "/home/cchampeau/Documents/talks/gradlesummit2016/step4/cli/src/main/java/com/acme/cli/GreeterCli.java:4: error: package com.acme"
+    ],
+    [
+      0.000010,
+      ".internal does not exist\r\n"
+    ],
+    [
+      0.000013,
+      "import com.acme.internal.GreeterInternal;\r\n"
+    ],
+    [
+      0.000015,
+      "                        ^\r\n"
+    ],
+    [
+      0.003085,
+      "/home/cchampeau/Documents/talks/gradlesummit2016/step4/cli/src/main/java/com/acme/cli/GreeterCli.java:26: error: cannot find sym"
+    ],
+    [
+      0.001043,
+      "bol"
+    ],
+    [
+      0.000128,
+      "\r\n"
+    ],
+    [
+      0.000195,
+      "        return GreeterInternal.normalize(reader.readLine());"
+    ],
+    [
+      0.000042,
+      "\r\n"
+    ],
+    [
+      0.000049,
+      "               ^"
+    ],
+    [
+      0.000038,
+      "\r\n"
+    ],
+    [
+      0.000050,
+      "  symbol:   variable GreeterInternal"
+    ],
+    [
+      0.000038,
+      "\r\n"
+    ],
+    [
+      0.000049,
+      "  location: class GreeterCli"
+    ],
+    [
+      0.000039,
+      "\r\n"
+    ],
+    [
+      0.000047,
+      "2 errors"
+    ],
+    [
+      0.000038,
+      "\r\n"
+    ],
+    [
+      0.000051,
+      ":cli:compileMainJarMainJava \u001b[33mFAILED\u001b[39m"
+    ],
+    [
+      0.000038,
+      "\r\n"
+    ],
+    [
+      0.000049,
+      "\r\n"
+    ],
+    [
+      0.000057,
+      "\u001b[31mFAILURE: \u001b[39m\u001b[31mBuild failed with an exception.\u001b[39m"
+    ],
+    [
+      0.000041,
+      "\r\n"
+    ],
+    [
+      0.000046,
+      "\r\n"
+    ],
+    [
+      0.000044,
+      "* What went wrong:"
+    ],
+    [
+      0.000042,
+      "\r\n"
+    ],
+    [
+      0.000047,
+      "Execution failed for task ':cli:compileMainJarMainJava'."
+    ],
+    [
+      0.000040,
+      "\r\n"
+    ],
+    [
+      0.000051,
+      "\u001b[33m\u003e \u001b[39mCompilation failed; see the compiler error output for details."
+    ],
+    [
+      0.000043,
+      "\r\n"
+    ],
+    [
+      0.000042,
+      "\r\n"
+    ],
+    [
+      0.000050,
+      "* Try:"
+    ],
+    [
+      0.000041,
+      "\r\n"
+    ],
+    [
+      0.000082,
+      "Run with \u001b[1m--stacktrace\u001b[22m option to get the stack trace. Run with \u001b[1m--info\u001b[22m or \u001b[1m--debug\u001b[22m option to get more lo"
+    ],
+    [
+      0.000051,
+      "g output."
+    ],
+    [
+      0.000037,
+      "\r\n"
+    ],
+    [
+      0.000046,
+      "\r\n"
+    ],
+    [
+      0.000044,
+      "\u001b[31mBUILD FAILED\u001b[39m"
+    ],
+    [
+      0.000043,
+      "\r\n"
+    ],
+    [
+      0.000042,
+      "\r\n"
+    ],
+    [
+      0.000050,
+      "Total time: 0.782 secs"
+    ],
+    [
+      0.000039,
+      "\r\n"
+    ],
+    [
+      0.000052,
+      "\u001b[0K"
+    ],
+    [
+      0.018235,
+      "\u001b[0m"
+    ],
+    [
+      0.364870,
+      "\u001b[1m\u001b[38;5;10mstep4\u001b(B\u001b[m\u001b(B\u001b[m\u001b[38;5;15m $ \u001b(B\u001b[m"
+    ]
+  ]
+}

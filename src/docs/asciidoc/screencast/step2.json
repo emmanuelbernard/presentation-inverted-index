@@ -1,0 +1,306 @@
+{
+  "version": 1,
+  "width": 80,
+  "height": 24,
+  "duration": 36.682517,
+  "command": "/bin/bash",
+  "title": "",
+  "env": {
+    "TERM": "xterm",
+    "SHELL": "/bin/bash"
+  },
+  "stdout": [
+    [
+      0.314955,
+      "\u001b[1m\u001b[38;5;10mstep2\u001b(B\u001b[m\u001b(B\u001b[m\u001b[38;5;15m $ \u001b(B\u001b[m"
+    ],
+    [
+      0.544688,
+      "c"
+    ],
+    [
+      0.241388,
+      "a"
+    ],
+    [
+      0.267352,
+      "t"
+    ],
+    [
+      0.143282,
+      " "
+    ],
+    [
+      0.373836,
+      "c"
+    ],
+    [
+      0.138715,
+      "o"
+    ],
+    [
+      0.106705,
+      "r"
+    ],
+    [
+      0.086614,
+      "e"
+    ],
+    [
+      0.248837,
+      "/"
+    ],
+    [
+      0.374331,
+      "s"
+    ],
+    [
+      0.147819,
+      "r"
+    ],
+    [
+      0.143501,
+      "c/"
+    ],
+    [
+      0.275739,
+      "m"
+    ],
+    [
+      0.129591,
+      "a"
+    ],
+    [
+      0.232510,
+      "in/"
+    ],
+    [
+      0.458623,
+      "j"
+    ],
+    [
+      0.260980,
+      "a"
+    ],
+    [
+      0.220471,
+      "va/"
+    ],
+    [
+      1.319608,
+      "c"
+    ],
+    [
+      0.169977,
+      "o"
+    ],
+    [
+      0.128328,
+      "m/"
+    ],
+    [
+      0.762575,
+      "a"
+    ],
+    [
+      0.182272,
+      "c"
+    ],
+    [
+      0.145737,
+      "me/"
+    ],
+    [
+      0.606297,
+      "i"
+    ],
+    [
+      0.039191,
+      "n"
+    ],
+    [
+      0.129806,
+      "ternal/"
+    ],
+    [
+      0.545997,
+      "G"
+    ],
+    [
+      0.192888,
+      "r"
+    ],
+    [
+      0.215672,
+      "eeterInternal.java "
+    ],
+    [
+      0.811537,
+      "\r\n"
+    ],
+    [
+      0.001395,
+      "package com.acme.internal;\r\n\r\nimport org.apache.commons.lang3.StringUtils;\r\n\r\npublic class GreeterInternal {\r\n   public static String normalize(String name) {\r\n       return StringUtils.capitalize(name);\r\n   }\r\n}\r\n"
+    ],
+    [
+      0.097897,
+      "\u001b[1m\u001b[38;5;10mstep2\u001b(B\u001b[m\u001b(B\u001b[m\u001b[38;5;15m $ \u001b(B\u001b[m"
+    ],
+    [
+      7.211909,
+      "c"
+    ],
+    [
+      0.299231,
+      "a"
+    ],
+    [
+      0.253820,
+      "t"
+    ],
+    [
+      0.735858,
+      " "
+    ],
+    [
+      0.286701,
+      "c"
+    ],
+    [
+      0.119045,
+      "o"
+    ],
+    [
+      0.121647,
+      "re/"
+    ],
+    [
+      0.420368,
+      "b"
+    ],
+    [
+      0.145917,
+      "u"
+    ],
+    [
+      0.090875,
+      "i"
+    ],
+    [
+      0.131703,
+      "ld.gradle "
+    ],
+    [
+      0.681316,
+      "\r\n"
+    ],
+    [
+      0.001567,
+      "plugins {\r\n   id 'jvm-component'\r\n   id 'java-lang'\r\n   id 'junit-test-suite'\r\n}\r\n\r\nrepositories { jcenter() }\r\n\r\nmodel {\r\n   components {\r\n       main(JvmLibrarySpec) {\r\n           sources {\r\n\u0009      java {\r\n                 dependencies {\r\n                    module 'org.apache.commons:commons-lang3:3.4'\r\n                 }\r\n              }\r\n           }\r\n       }\r\n   }\r\n}\r\n"
+    ],
+    [
+      0.071851,
+      "\u001b[1m\u001b[38;5;10mstep2\u001b(B\u001b[m\u001b(B\u001b[m\u001b[38;5;15m $ \u001b(B\u001b[m"
+    ],
+    [
+      8.828510,
+      "g"
+    ],
+    [
+      0.097034,
+      "l"
+    ],
+    [
+      0.112752,
+      " "
+    ],
+    [
+      0.233100,
+      "b"
+    ],
+    [
+      0.087227,
+      "u"
+    ],
+    [
+      0.065545,
+      "i"
+    ],
+    [
+      0.245344,
+      "l"
+    ],
+    [
+      0.105015,
+      "d"
+    ],
+    [
+      0.746249,
+      "\r\n"
+    ],
+    [
+      0.637875,
+      "\u001b[0m"
+    ],
+    [
+      0.743581,
+      "\u001b[1m\u003e Connecting to Daemon\u001b[22m"
+    ],
+    [
+      0.119653,
+      "\u001b[22D\u001b[1m\u003e Configuring \u003e 1/3 projects \u003e :cli\u001b[22m"
+    ],
+    [
+      0.105277,
+      "\u001b[35D\u001b[1m\u003e Configuring \u003e 3/3 projects\u001b[22m\u001b[0K"
+    ],
+    [
+      0.145632,
+      "\u001b[28D\u001b[1m\u003e Building 0% \u003e :core:compileMainJarMainJava\u001b[22m"
+    ],
+    [
+      0.112362,
+      "\u001b[44D:core:compileMainJarMainJava\u001b[0K"
+    ],
+    [
+      0.000119,
+      "\r\n"
+    ],
+    [
+      0.000271,
+      "\u001b[1m\u003e Building 0%\u001b[22m\u001b[0K"
+    ],
+    [
+      0.086993,
+      "\u001b[13D:core:mainApiJar\r\n"
+    ],
+    [
+      0.000031,
+      "\u001b[1m\u003e Building 14% \u003e :cli:compileMainJarMainJava\u001b[22m"
+    ],
+    [
+      0.156256,
+      "\u001b[44D:cli:compileMainJarMainJava\u001b[0K\r\n:cli:createMainJar\r\n:cli:mainApiJar\r\n:cli:mainJar\r\n:cli:assemble\r\n:cli:check \u001b[33mUP-TO-DATE\u001b[39m\r\n:cli:build\r\n\u001b[1m\u003e Building 64% \u003e :core:createMainJar\u001b[22m\u001b[0K"
+    ],
+    [
+      0.061796,
+      "\u001b[36D:core:createMainJar\u001b[0K\r\n:core:mainJar"
+    ],
+    [
+      0.000022,
+      "\r\n:core:assemble\r\n:core:check \u001b[33mUP-TO-DATE\u001b[39m\r\n:core:build\r\n\r\nBUILD SUCCESSFUL\r\n\r\nTotal time: 2.05 secs\r\n\u001b[0K"
+    ],
+    [
+      0.002824,
+      "\u001b"
+    ],
+    [
+      0.000028,
+      "[0m"
+    ],
+    [
+      0.421951,
+      "\u001b[1m\u001b[38;5;10mstep2\u001b(B\u001b[m\u001b(B\u001b[m\u001b[38;5;15m $ \u001b(B\u001b[m"
+    ]
+  ]
+}

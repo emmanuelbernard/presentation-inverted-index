@@ -1,0 +1,87 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:0.4.0'
+        classpath 'org.ysb33r.gradle:vfs-gradle-plugin:1.0-beta3'
+        classpath 'commons-httpclient:commons-httpclient:3.1'
+        classpath 'org.ajoberstar:gradle-git:1.1.0'
+        classpath 'io.ratpack:ratpack-groovy:1.2.0'
+    }
+
+}
+
+repositories {
+    jcenter()
+}
+
+apply plugin: 'com.github.jruby-gradle.base'
+apply plugin: 'org.ysb33r.vfs'
+apply plugin: 'java'
+apply plugin: 'org.asciidoctor.convert'
+
+dependencies {
+    gems 'rubygems:slim:2.1.0'
+    gems 'rubygems:thread_safe:0.3.4'
+}
+
+ext {
+    revealjsVersion = '2.6.2'
+    asciidoctorBackendVersion = 'master'
+    downloadDir = new File(buildDir, 'download')
+    templateDir = new File(downloadDir, 'templates')
+    revealJsDir = new File(downloadDir, 'reveal.js')
+}
+
+asciidoctorj {
+   version = '1.5.4'
+}
+
+apply from: 'gradle/pdf.gradle'
+
+task download {
+    doLast {
+        mkdir downloadDir
+        mkdir templateDir
+        vfs {
+            cp "zip:https://github.com/asciidoctor/asciidoctor-reveal.js/archive/${asciidoctorBackendVersion}.zip!asciidoctor-reveal.js-${asciidoctorBackendVersion}",
+                    templateDir, recursive: true, overwrite: true
+            cp "zip:https://github.com/hakimel/reveal.js/archive/${revealjsVersion}.zip!reveal.js-${revealjsVersion}",
+                    revealJsDir, recursive: true, overwrite: true
+        }
+    }
+}
+
+task copyTheme(type: Copy) {
+    dependsOn download
+    from fileTree("$revealJsDir/reveal.js-${revealjsVersion}")
+    into revealJsDir
+    from fileTree('src/docs/theme')
+    into file("$revealJsDir/css/theme")
+}
+
+task copyScreencasts(type: Copy) {
+    from fileTree('src/docs/asciidoc/screencast')
+    into file("$buildDir/asciidoc/revealjs")
+}
+
+download {
+    description "Download extra deckjs/reveal.js resources"
+    inputs.property 'asciidoctorBackendVersion', asciidoctorBackendVersion
+    inputs.property 'revealjsVersion', revealjsVersion
+    outputs.dir templateDir
+    outputs.dir revealJsDir
+}
+
+apply from: 'gradle/asciidoctor.gradle'
+apply from: 'gradle/github.gradle'
+
+allprojects {
+    apply plugin: 'idea'
+}
+apply from: 'gradle/github.gradle'
+

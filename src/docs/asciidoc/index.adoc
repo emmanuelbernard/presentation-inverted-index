@@ -245,6 +245,8 @@ With composite builds!
 
 https://gradle.github.io/performance-guide/
 
+image::gradle-vs-maven-clean-build.png[]
+
 == Thank you!
 
 * Slides and code : https://github.com/melix/finistjug-fast-builds

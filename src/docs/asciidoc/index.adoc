@@ -249,7 +249,7 @@ image::gradle-vs-maven-clean-build.png[]
 
 == Thank you!
 
-* Slides and code : https://github.com/melix/finistjug-fast-builds
+* Slides and code : https://github.com/melix/breizhjug-fast-builds
 * Gradle documentation : http://gradle.org/documentation/
 * Follow me: http://twitter.com/CedricChampeau[@CedricChampeau]
 

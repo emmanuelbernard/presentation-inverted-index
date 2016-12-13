@@ -50,7 +50,7 @@ asciidoctor {
     doLast {
         def html = new File("$buildDir/asciidoc/revealjs/index.html")
         def fixed = html.text.replace('<section><h1>', '<section data-background="images/summit-intro.png"><h1>')
-        fixed = fixed.replace('<h1>Extremely fast builds with Gradle 3</h1>', '<div id="front-top">BreizhJUG</div><div id="front-title">Extremely fast builds with Gradle 3 <br> Cédric Champeau</div><div id="front-date">2016</div>')
+        fixed = fixed.replace('<h1>Extremely fast builds with Gradle 3</h1>', '<div id="front-top">VirtualJUG</div><div id="front-title">Extremely fast builds with Gradle 3 <br> Cédric Champeau</div><div id="front-date">2016</div>')
         fixed = fixed.replace('<p><small>Cédric Champeau (@CedricChampeau), Gradle Inc.</small></p>', '')
         html.withWriter('utf-8') { it.write fixed }
     }

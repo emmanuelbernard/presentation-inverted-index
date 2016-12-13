@@ -1,5 +1,5 @@
 = Extremely fast builds with Gradle 3
-Cédric Champeau (@CedricChampeau), Gradle Inc.
+Cédric Champeau (@CedricChampeau), Gradle
 2016-04-22
 :revnumber: {project-version}
 :example-caption!:
@@ -56,7 +56,7 @@ Misc OSS contribs (Gradle plugins, deck2pdf, jlangdetect, ...)'''
 * Incremental compilation
 * Continuous builds
 * Composite builds
-* Task output cache
+* Build cache
 
 == What is Gradle?
 
@@ -106,6 +106,8 @@ image::daemon-keynote-warm.gif[]
 == Build scan demo
 
 https://scans.gradle.com/s/sample/groovy
+https://scans.gradle.com/s/cxwz7amaxhcdc
+https://scans.gradle.com/s/ly5tnqtuoqlwe
 
 == Creating a build scan
 
@@ -114,7 +116,7 @@ https://scans.gradle.com/s/sample/groovy
 [source,groovy]
 ----
 plugins {
-    id 'com.gradle.build-scan' version '1.0'
+    id 'com.gradle.build-scan' version '1.3'
 }
 
 buildScan {
@@ -223,7 +225,7 @@ gradle -t asciidoctor
 
 == Composite builds demo
 
-== Task output cache
+== Build cache
 
 * Avoid doing work even after _clean_
 * Share binaries between projects on a single machine
@@ -235,7 +237,7 @@ gradle -t asciidoctor
 * Long compile tasks
 * Bisecting
 * Continuous integration
-* Green earth
+* Green Earth ;)
 
 == Task output cache demo
 
@@ -249,7 +251,7 @@ image::gradle-vs-maven-clean-build.png[]
 
 == Thank you!
 
-* Slides and code : https://github.com/melix/breizhjug-fast-builds
+* Slides and code : https://github.com/melix/virtualjug-fast-builds
 * Gradle documentation : http://gradle.org/documentation/
 * Follow me: http://twitter.com/CedricChampeau[@CedricChampeau]
 

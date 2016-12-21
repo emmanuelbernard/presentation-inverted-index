@@ -1,0 +1,23 @@
+= Read me
+
+== How to build
+
+[source]
+----
+# Generate the HTML
+./gradlew asciidoc
+
+# Listen to file change and regenerate the HTML
+
+./gradlew -t asciidoc
+
+# Generate the PDF
+./gradlew generatePdf
+
+# more tasks
+./gradlew tasks --all
+----
+
+== More
+
+`gradle/asciidoctor.gradle` has some properties and html substitutions for the first slide

@@ -1,0 +1,92 @@
+= Example presentation
+Emmanuel Bernard
+2016-12-20
+:hardbreaks:
+:revnumber: {project-version}
+:example-caption!:
+ifndef::imagesdir[:imagesdir: images]
+ifndef::sourcedir[:sourcedir: ../java]
+:deckjs_transition: fade
+:revealjs_slideNumber: true
+:navigation:
+:menu:
+:status:
+:adoctor: http://asciidoctor.org/[Asciidoctor]
+:gradle: http://gradle.org[Gradle]
+
+
+== Pass through some HTML
+
+++++
+<style>
+.asciinema-terminal.font-medium {
+  font-size: 16px;
+}
+</style>
+++++
+
+== Examples
+
+=== Images
+
+image::daemon-keynote-warm.gif[]
+
+
+=== left / right text and image via table
+
+[cols="50a,50a"]
+|===
+|
+* First member of the Cloud Services family
+* Insights into your build
+* View and share via URL
+* Debug, optimize and refine
+* Analyze _all_ of your builds
+* Available for free 
+|image:build-scans.png[]
+|===
+
+=== Source code
+
+[source,groovy]
+----
+plugins {
+    id 'com.gradle.build-scan' version '1.3'
+}
+
+buildScan {
+    licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+    licenseAgree = 'yes'
+}
+----
+
+=== command line
+
+```
+./gradlew -Dscan build
+```
+
+=== Nested bullets
+
+* _Compose_ various projects as if there were one
+** Each project can live in its own repository
+** Each project has its own Gradle build
+** Composition unites them through _dependency resolution_
+* _Split_ monolithic projects
+** For large multiproject builds, allows splitting them into several pieces
+** Each piece can be versioned independently
+** Developers can _choose_ what subprojects they care about
+
+[%notitle]
+=== Slide with a hidden title
+
+
+== Thank you!
+
+* Slides and code : https://github.com/melix/virtualjug-fast-builds
+* Gradle documentation : http://gradle.org/documentation/
+* Follow me: http://twitter.com/CedricChampeau[@CedricChampeau]
+
+Learn more at https://gradle.org[www.gradle.org]
+
+

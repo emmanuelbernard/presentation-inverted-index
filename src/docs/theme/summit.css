@@ -226,3 +226,38 @@ body {
    z-index:-10;
    width:50%;
 }
+
+.reveal .small p  {
+   font-size: 80%;
+}
+
+/***** Table coloring ***/
+.reveal thead {
+    color: #ffffff;
+    background-color: #007042; // dark green
+    border-color: #ffffff;
+}
+
+.reveal table td {
+    border-color: #007042;
+    border-bottom: 1px solid;
+}
+
+/******* Mark section as aside ****/
+// http://www.color-hex.com/color/007042
+section#aside {
+    border-left-color: #006670; 
+    border-left-style: solid;
+    border-width: 5px;
+    padding-left: 10px;
+    margin-left: -10px;
+}
+
+/******* Mark section as fundamental ****/
+section#fundamental {
+    border-left-color: #70002e; 
+    border-left-style: solid;
+    border-width: 5px;
+    padding-left: 10px;
+    margin-left: -10px;
+}

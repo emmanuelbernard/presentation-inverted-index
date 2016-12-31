@@ -13,6 +13,7 @@ ifndef::sourcedir[:sourcedir: ../java]
 :status:
 :adoctor: http://asciidoctor.org/[Asciidoctor]
 :gradle: http://gradle.org[Gradle]
+:stem:
 
 
 == Pass through some HTML
@@ -45,6 +46,25 @@ image::daemon-keynote-warm.gif[]
 * Available for free 
 |image:build-scans.png[]
 |===
+
+=== Some slides and note speakers
+
+Some slides
+
+[NOTE.speaker]
+--
+Some info not displayed
+--
+
+=== Some mathematic expressions
+
+Enable `:stem:` for the asciidoctor document
+
+[stem]
+++++
+"queryNorm"(q) = 1/sqrt(sum_(t in q) (idf(t)^2))
+++++
+
 
 === Source code
 

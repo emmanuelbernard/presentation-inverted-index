@@ -261,3 +261,10 @@ section#fundamental {
     padding-left: 10px;
     margin-left: -10px;
 }
+
+/***** Q&A ******/
+.reveal dt {
+    text-align: left;
+    font-weight: bold;
+    color: #007042;
+}

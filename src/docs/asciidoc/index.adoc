@@ -11,11 +11,11 @@ ifndef::sourcedir[:sourcedir: ../java]
 :navigation:
 :menu:
 :status:
+:stem:
 
 == What are we here for
 
 Discuss inverted index technology and fundamentals
-Understand how search engines work
 
 === Emmanuel Bernard
 
@@ -76,9 +76,116 @@ SELECT * FROM Speakers s WHERE s.bio = 'Open Source'
 
 B-Tree index
 
-=== A zoom on B-Trees
+[#fundamental]
+== A zoom on B-Trees
 
-TODO: work on B-trees
+Self-balancing tree data stucture
+Search, insert and delete in `O(log n)`
+Good when access time >> process time
+
+Replace numbers in the example with letters for text.
+
+image::b-tree/b-tree-base.png[]
+
+[#fundamental]
+=== Splitting leaf nodes
+
+[.left]
+--
+image::b-tree/b-tree-base.png[]
+--
+
+[.right]
+--
+image::b-tree/b-tree-1.png[]
+--
+
+[#fundamental]
+=== Simple addition
+
+[.left]
+--
+image::b-tree/b-tree-1.png[]
+--
+
+[.right]
+--
+image::b-tree/b-tree-2.png[]
+--
+
+[#fundamental]
+=== Splitting nodes
+
+[.left]
+--
+image::b-tree/b-tree-2.png[]
+--
+
+[.right]
+--
+image::b-tree/b-tree-3.png[]
+--
+
+[#fundamental]
+=== Filling up a leaf node
+
+[.left]
+--
+image::b-tree/b-tree-3.png[]
+--
+
+[.right]
+--
+image::b-tree/b-tree-4.png[]
+--
+
+[#fundamental]
+=== Splitting nodes and filling up the root
+
+[.left]
+--
+image::b-tree/b-tree-4.png[]
+--
+
+[.right]
+--
+image::b-tree/b-tree-5.png[]
+--
+
+[#fundamental]
+=== Filling up leaves
+
+[.left]
+--
+image::b-tree/b-tree-5.png[]
+--
+
+[.right]
+--
+image::b-tree/b-tree-6.png[]
+--
+
+[#fundamental]
+=== Adding one level
+
+[.left]
+--
+image::b-tree/b-tree-6.png[]
+--
+
+[.right]
+--
+image::b-tree/b-tree-7.png[]
+--
+
+[#fundamental]
+=== B+-tree
+
+Only keys in the non leaf nodes
+Leaf nodes linked with one another for efficient ascending reading
+Data can be just pointer to the real data
+
+== Back to our RDBMS vs inverted indices
 
 === With like
 
@@ -132,7 +239,7 @@ I want the most interesting result first
 
 === Inverted index to the rescue
 
-Let's not index columns but words
+Let's not index column values but words
 Let's not query values but words
 
 === At indexing time
@@ -228,7 +335,7 @@ This is awesome.
 Split sentence into words called _tokens_
 Split at spaces, dots and other punctuations (with exceptions)
 
-aujourd'hui, A.B.C., and many other rules
+`aujourd'hui`, `A.B.C.`, and many other rules
 
 One tokenizer per language, but many languages are similar
 
@@ -256,12 +363,207 @@ stopwords: |AWESOME|Peter|
 lowercase: |awesome|peter|
 --
 
-=== 
+=== Solving various problems with filters
 
+=== Synonyms
 
-== Quering time
+When the text mentions a "car" but the research is about "automobile" or "vehicle"
+We need a synonym dictionary.
+
+=== Synonym solution
+
+1. Put all synonyms in the index for each word
+2. Use a reference synonym ("automobile" for "car", "compact", "auto", "S.U.V."...)
+3. index normally, use synonyms when building the query
+
+=== Words from the same family
+
+"education", "educates", "educated", ...
+That would make for lots of synonyms...
+Let's use a stemming algorithm
+
+=== An algorithm to copy language logic (and exceptions)
+
+[.left]
+--
+Porter stemming algorithm
+Snowball grammar
+http://snowballstem.org/algorithms/french/stemmer.html[French algorithm explained]
+
+Index/query the stem when the word in found
+--
+
+[.right]
+--
+|===
+|word|stem
+
+|main|main
+|mains|main
+|maintenaient|mainten
+|maintenait|mainten
+|maintenant|mainten
+|maintenir|mainten
+|maintenue|mainten
+|maintien|maintien
+|==
+--
+
+=== Finding words with typos
+
+People make mistakes
+In the text or in the query
+
+They make _thaipo_ and other _mystakes_
+
+=== Phonetic algorithm
+
+Same logic as stemming, convert word into phonetic approximation
+Soundex, RefinedSoundex, Metaphone, DoubleMetaphone
+
+[NOTE.speaker]
+--
+* Soundex most well known and oldest
+* RefinedSoundex more focused on spell checking
+* Metaphone: variable length phonetic approximation
+* Double Metaphone: handles more irregularities from English, German, Greek, French, Chinese
+
+Phonetic algorithms relatively costly
+--
+
+=== n-gram
+
+Split a word into a sliding window of n characters
+Index each n-gram
+
+low n means more false positive
+high n means less forgiving
+
+[source]
+--
+// building a 3 gram
+mystake: mys yst sta tak ake
+mistake: mis ist sta tak ake
+--
+
+=== Fuzzy search
+
+Based on Damerau-Levenshtein distance
+
+* insert, update, delete and transposition
+
+Pure query time operation
+
+=== Fuzzy search in practice
+
+Compute distance between word and all words in index
+
+Compute a distance state machine for word
+Use it to check specific terms in the index
+
+[.left.small]
+--
+n^e^: n consummed chars, e errors
+horizontal: unmodified chars
+* vertical: addition
+* diagonal: substitution
+ε diagonal: deletion
+--
+
+[.right]
+--
+image::fuzzy/levenstein-nfa-food.png[]
+--
+
+[NOTE.speaker]
+--
+Read https://julesjacobs.github.io/2015/06/17/disqus-levenshtein-simple-and-fast.html and http://blog.notdot.net/2010/07/Damn-Cool-Algorithms-Levenshtein-Automata
+The image is a Non deterministic Finite Automaton
+--
+
+=== You can index the same data in different ways
+
+Apply different indexing approach for same data
+
+== Querying time
+
+It's _term_ query all the way down!
+All queries (synonyms, phonetic, n-gram, fuzzy) are a (set of) term queries
+
+=== Possible queries
+
+TODO: possible queries?
+Term, wildcard, prefix, fuzzy, phrase, range, boolean, all, spatial, more like this, spell checking
 
 == Scoring
+
+We want the most relevant results first
+This is relative
+Several approaches, none perfect
+
+=== Main levers for a scoring formulae
+
+Term frequency::
+How often does the term appear in this document?
+More is better
+
+Inverse document frequency::
+How often does the term appear in all documents in the collection?
+Common words are less important
+
+Field-length norm::
+How long is the field?
+Long documents would be favored otherwise
+
+Coordination factor::
+If document contains multiple terms, it's a better fit.
+
+[%step]
+=== TF/IDF Full formulae
+
+[stem.small]
+++++
+"score"(q,d) =
+    "queryNorm"(q)
+    * "coord"(q,d)
+    * sum_(t in q) (
+        tf(t in d)
+        * idf(t)^2
+        * "t.boost"
+        * "norm"(t,d)
+    )
+++++
+
+[stem.small]
+++++
+"queryNorm"(q) = 1/sqrt(sum_(t in q) (idf(t)^2))
+++++
+
+[stem.small]
+++++
+"coord"(q,d) = ("matchingTerm"(q))/("nbrOfTerms"(q))
+++++
+
+[stem.small]
+++++
+tf(t in d) = sqrt(nbrOfTermAppearance(t in d))
+++++
+
+[stem.small]
+++++
+idf(t) = 1 + log ( "numDocs" / ("numDocs"(t in d) + 1)) 
+++++
+
+[stem.small]
+++++
+"norm"(d) = 1/sqrt( "nbrOfTerms"(t in d) )
+++++
+
+=== Other scoring
+
+Boosting fields
+Okapi BM25
+Your custom scoring function (or a tweak of)
 
 == Inverted index physical representation
 

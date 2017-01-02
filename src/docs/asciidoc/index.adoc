@@ -76,7 +76,7 @@ SELECT * FROM Speakers s WHERE s.bio = 'Open Source'
 
 B-Tree index
 
-[#fundamental]
+[.fundamental]
 == A zoom on B-Trees
 
 Self-balancing tree data stucture
@@ -87,7 +87,7 @@ Replace numbers in the example with letters for text.
 
 image::b-tree/b-tree-base.png[]
 
-[#fundamental]
+[.fundamental]
 === Splitting leaf nodes
 
 [.left]
@@ -100,7 +100,7 @@ image::b-tree/b-tree-base.png[]
 image::b-tree/b-tree-1.png[]
 --
 
-[#fundamental]
+[.fundamental]
 === Simple addition
 
 [.left]
@@ -113,7 +113,7 @@ image::b-tree/b-tree-1.png[]
 image::b-tree/b-tree-2.png[]
 --
 
-[#fundamental]
+[.fundamental]
 === Splitting nodes
 
 [.left]
@@ -126,7 +126,7 @@ image::b-tree/b-tree-2.png[]
 image::b-tree/b-tree-3.png[]
 --
 
-[#fundamental]
+[.fundamental]
 === Filling up a leaf node
 
 [.left]
@@ -139,7 +139,7 @@ image::b-tree/b-tree-3.png[]
 image::b-tree/b-tree-4.png[]
 --
 
-[#fundamental]
+[.fundamental]
 === Splitting nodes and filling up the root
 
 [.left]
@@ -152,7 +152,7 @@ image::b-tree/b-tree-4.png[]
 image::b-tree/b-tree-5.png[]
 --
 
-[#fundamental]
+[.fundamental]
 === Filling up leaves
 
 [.left]
@@ -165,7 +165,7 @@ image::b-tree/b-tree-5.png[]
 image::b-tree/b-tree-6.png[]
 --
 
-[#fundamental]
+[.fundamental]
 === Adding one level
 
 [.left]
@@ -178,7 +178,7 @@ image::b-tree/b-tree-6.png[]
 image::b-tree/b-tree-7.png[]
 --
 
-[#fundamental]
+[.fundamental]
 === B+-tree
 
 Only keys in the non leaf nodes
@@ -339,7 +339,7 @@ Split at spaces, dots and other punctuations (with exceptions)
 
 One tokenizer per language, but many languages are similar
 
-[#aside]
+[.aside]
 === Continuous scripting
 
 Didyouknowwritingtextsinwordsseparatedbyspaceisnotthatold

@@ -245,7 +245,7 @@ body {
 
 /******* Mark section as aside ****/
 // http://www.color-hex.com/color/007042
-section#aside {
+.reveal .slides>section.aside, .reveal .slides>section>section.aside {
     border-left-color: #006670; 
     border-left-style: solid;
     border-width: 5px;
@@ -254,7 +254,7 @@ section#aside {
 }
 
 /******* Mark section as fundamental ****/
-section#fundamental {
+.reveal .slides>section.fundamental, .reveal .slides>section>section.fundamental {
     border-left-color: #70002e; 
     border-left-style: solid;
     border-width: 5px;

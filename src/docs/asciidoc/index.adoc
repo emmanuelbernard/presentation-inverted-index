@@ -1,4 +1,4 @@
-= Inverted indices
+= Inverted index
 Emmanuel Bernard
 2016-12-20
 :hardbreaks:
@@ -7,7 +7,7 @@ Emmanuel Bernard
 ifndef::imagesdir[:imagesdir: images]
 ifndef::sourcedir[:sourcedir: ../java]
 :deckjs_transition: fade
-:revealjs_slideNumber: 'c/t'
+:revealjs_slidenumber: false
 :navigation:
 :menu:
 :status:
@@ -569,23 +569,205 @@ Your custom scoring function (or a tweak of)
 
 A Lucene example
 
-=== File structure
+[.fundamental]
+=== B-tree's problems
+
+When you need write throughput
+B-tree require lots of update in place
+Sequential reads are much faster than random reads
+
+* in memory
+* on didk
+
+[.fundamental]
+=== Append logs
+
+Append operations in a file
+Reading requires reading all the log
+
+[.fundamental]
+=== Log-Structured Merge
+
+Per batch of writes, create a file storing the sorted key/value pairs
+On read, check for the key on each file
+Regularly merge files together (e.g. make bigger files)
+
+image::lsm/lsm-base.png[Log-Structured Merge Tree]
+
+[.fundamental]
+=== LSM characteristics
+
+Immutable (lock-free) and file cache friendly
+Fast on write, decent on read
+Sequential read/write friendly
+Read time decays with number of files => merge
+
+[.fundamental]
+=== Lots of ways to improve them
+
+Bloom filter
+Page index in memory
+Levelled compaction
+
+[.fundamental]
+=== Levelled LSM tree
+
+image::lsm/lsm-levelled-compaction.png[Log-Structured Merge Tree]
+
+[.fundamental]
+=== Levelled compaction
+
+Limit the number of files to read
+Compact to the higher levels
+Each file per level has non overlapping key ranges
+One file per level to be consulted
+
+=== Lucene's case
+
+LSM
+Everything is computed upfront
+Each _segment_ is a mini index
+Denormalize differently depending on access pattern
+
+=== A segment (simplified)
+
+* term index (like a ToC for the dictionary)
+* term dictionary (points to posting list offset)
+* posting list (list of matching document id per term)
+* stored field index (sparse doc id + offset)
+* stored field data (list of field values per document id)
+* deleted documents
+
+=== Term index
+
+Term index provides offset to the dictionary
+Based on _finite state transducers_
+Gives one ordinal per prefix
+
+We know where to look in the term dictionary
+
+[.left]
+--
+image::file-structure/FSTExample.png[]
+--
+
+[.right.small]
+--
+FST for mop, moth, pop, star, stop and top
+
+[source]
+----
+mop=0
+moth=1
+pop=2
+star=3
+stop=4
+top=5
+----
+--
+
 
 [NOTE.speaker]
 --
-B-Tree, not fast enough
+Thanks to immutable can be built at merge time
+Thanks to immutable, replace term with it's ordinal value and index in a virtual array
+terms are ordered alphabetically and given an ordinal => alter comparison by ordinal comparison
 --
 
-=== Log-Structured Merge
+=== Term dictionary
+
+From a given offset (& prefix)
+Sorted list of suffixes
+For each, frequency and offset to posting list
+
+[source]
+----
+[prefix=top]
+_null_, freq=27, offset=234
+ography, freq=1, offset=298
+ology, freq=6, offset=306
+onyms, freq=1, offset=323
+----
+
+=== Posting list
+
+List of document ids
+Encoded as delta of ids (good for variable int encoding)
+
+[source]
+----
+4,6,9,30,33,39,45 => 4,2,3,23,3,6,6
+----
+
+http://www2008.org/papers/pdf/p387-zhangA.pdf[PForDelta] encoding
+Bigger in size but less CPU branch miss prediction
+
+[NOTE.speaker]
+--
+PForDelta
+By batch of 128 integers, find the smallest number of bits for the biggest int
+And use this as fixed encoding.
+Note that, it has a notion of exception for ints bigger than b bits to improve the logic
+--
+
+=== Stored fields
+
+Stored field index in memory doc id + offset for every 16k of data
+Stored value stored as bocks of 16k and compressed
+
+image::file-structure/stored-fields.png[]
+
+=== Deleted documents
+
+You said segments are immutable
+What about deleted documents?
+
+Deleted document file
+
+* 1 bit per doc
+* sparse list of cleared docs
+
+=== Why oh why such a mess?
+
+2 disk seeks per field search (binary search)
+1 disk seek per doc for stored fields
+
+But things likely fit in file system cache
+
+Warning: this is a simplified view :)
+
+== Subjects not covered
 
 === Uninverted index
 
+Columnar storage
+Called doc values
+Used for aggregation or sorting or faceting
+
+=== Faceting
+
+=== Position
+
+=== Geospatial queries
+
+=== Term vector
+
+=== Shingles
+
+=== And many more things
+
+
 == Thank you!
 
-* Slides and code : https://github.com/melix/virtualjug-fast-builds
-* Gradle documentation : http://gradle.org/documentation/
-* Follow me: http://twitter.com/CedricChampeau[@CedricChampeau]
+* Slides https://emmanuelbernard.com/presentations/inverted-index/
+* Code https://github.com/emmanuelbernard/presentation-inverted-index/
+* Blog https://emmanuelbernard.com[emmanuelbernard.com]
+* Follow me: http://twitter.com/emmanuelbernard[@emmanuelbernard]
 
-Learn more at https://gradle.org[www.gradle.org]
+=== References
 
+TODO: fill up all references
 
+=== TODO
+
+Put some fun breaks every now and then

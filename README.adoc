@@ -1,5 +1,8 @@
 = Read me
 
+This is a presentation on inverted index technology.
+The target audience is computer science students.
+
 == How to build
 
 [source]

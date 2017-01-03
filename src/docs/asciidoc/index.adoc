@@ -358,7 +358,7 @@ lowercase, stopwords
 [source]
 --
 Sentence: This is AWESOME Peter!
-Tokens: |This|is|AWERSOME|Peter|
+Tokens: |This|is|AWESOME|Peter|
 stopwords: |AWESOME|Peter|
 lowercase: |awesome|peter|
 --
@@ -390,7 +390,7 @@ Porter stemming algorithm
 Snowball grammar
 http://snowballstem.org/algorithms/french/stemmer.html[French algorithm explained]
 
-Index/query the stem when the word in found
+Index/query the stem when the word is found
 --
 
 [.right]
@@ -436,7 +436,7 @@ Phonetic algorithms relatively costly
 Split a word into a sliding window of n characters
 Index each n-gram
 
-low n means more false positive
+low n means more false positives
 high n means less forgiving
 
 [source]
@@ -463,7 +463,7 @@ Use it to check specific terms in the index
 
 [.left.small]
 --
-n^e^: n consummed chars, e errors
+n^e^: n consumed chars, e errors
 horizontal: unmodified chars
 * vertical: addition
 * diagonal: substitution
@@ -577,7 +577,7 @@ B-tree require lots of update in place
 Sequential reads are much faster than random reads
 
 * in memory
-* on didk
+* on disk
 
 [.fundamental]
 === Append logs
@@ -669,9 +669,9 @@ top=5
 
 [NOTE.speaker]
 --
-Thanks to immutable can be built at merge time
-Thanks to immutable, replace term with it's ordinal value and index in a virtual array
-terms are ordered alphabetically and given an ordinal => alter comparison by ordinal comparison
+Thanks to immutable, can be built at merge time
+Thanks to immutable, replace term with its ordinal value and index in a virtual array
+Terms are ordered alphabetically and given an ordinal => alter comparison by ordinal comparison
 --
 
 === Term dictionary
@@ -707,7 +707,7 @@ Bigger in size but less CPU branch miss prediction
 PForDelta
 By batch of 128 integers, find the smallest number of bits for the biggest int
 And use this as fixed encoding.
-Note that, it has a notion of exception for ints bigger than b bits to improve the logic
+Note that it has a notion of exception for ints bigger than b bits to improve the logic
 --
 
 === Stored fields

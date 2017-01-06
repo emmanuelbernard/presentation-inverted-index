@@ -326,7 +326,7 @@ e.g. remove HTML tags
 
 [source]
 ----
-<p>This is <string>awesome</strong>.</p>
+<p>This is <strong>awesome</strong>.</p>
 This is awesome.
 ----
 

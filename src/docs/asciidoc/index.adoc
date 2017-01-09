@@ -185,6 +185,14 @@ Only keys in the non leaf nodes
 Leaf nodes linked with one another for efficient ascending reading
 Data can be just pointer to the real data
 
+=== XKCD: Tree
+
+image::b-tree/xkcd-tree.png[link:"https://www.xkcd.com/835/"]
+
+Not only is that terrible in general, but you just KNOW Billy's going to open the root present first, and then everyone will have to wait while the heap is rebuilt.
+
+
+
 == Back to our RDBMS vs inverted indices
 
 === With like
@@ -497,9 +505,17 @@ Term, wildcard, prefix, fuzzy, phrase, range, boolean, all, spatial, more like t
 
 == Scoring
 
+[.left]
+--
+image::scoring/xkcd-scoring.png[link="https://xkcd.com/1334/]
+--
+
+[.right]
+--
 We want the most relevant results first
 This is relative
 Several approaches, none perfect
+--
 
 === Main levers for a scoring formulae
 
@@ -564,6 +580,7 @@ idf(t) = 1 + log ( "numDocs" / ("numDocs"(t in d) + 1)) 
 Boosting fields
 Okapi BM25
 Your custom scoring function (or a tweak of)
+
 
 == Inverted index physical representation
 
@@ -729,12 +746,15 @@ Deleted document file
 
 === Why oh why such a mess?
 
+image::file-structure/xkcd-lisp.jpg[link="https://xkcd.com/224/"]
+
 2 disk seeks per field search (binary search)
 1 disk seek per doc for stored fields
 
 But things likely fit in file system cache
 
 Warning: this is a simplified view :)
+
 
 == Subjects not covered
 

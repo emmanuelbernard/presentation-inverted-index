@@ -766,8 +766,44 @@ Used for aggregation or sorting or faceting
 
 === References
 
-TODO: fill up all references
+[.small]
+--
+B-tree
 
-=== TODO
+* http://cis.stvincent.edu/html/tutorials/swd/btree/btree.html
 
-Put some fun breaks every now and then
+Analyzers
+
+* http://tartarus.org/~martin/PorterStemmer/
+* snowballstem.org
+
+Scoring
+
+* https://modye.github.io/es-in-depth/#/4/19
+* https://www.elastic.co/guide/en/elasticsearch/guide/current/practical-scoring-function.html
+* https://en.wikipedia.org/wiki/Okapi_BM25
+* https://speakerdeck.com/elastic/improved-text-scoring-with-bm25
+
+Query
+
+* https://julesjacobs.github.io/2015/06/17/disqus-levenshtein-simple-and-fast.html
+* http://blog.mikemccandless.com/2011/03/lucenes-fuzzyquery-is-100-times-faster.html
+* http://blog.notdot.net/2010/07/Damn-Cool-Algorithms-Levenshtein-Automata
+--
+
+[%notitle]
+=== References 2
+
+[.small]
+--
+Lucene file and memory structure
+
+* http://stackoverflow.com/questions/2602253/how-does-lucene-index-documents
+* https://web.archive.org/web/20130904073403/http://www.ibm.com/developerworks/library/wa-lucene/
+* http://lucene.apache.org/core/4_10_2/core/org/apache/lucene/codecs/lucene410/package-summary.html#package_description
+* http://lucene.apache.org/core/3_6_2/fileformats.html
+* https://youtu.be/T5RmMNDR5XI
+* http://www.research.ibm.com/haifa/Workshops/ir2005/papers/DougCutting-Haifa05.pdf
+* http://blog.mikemccandless.com/2010/12/using-finite-state-transducers-in.html
+* http://blog.parsely.com/post/1691/lucene/
+--

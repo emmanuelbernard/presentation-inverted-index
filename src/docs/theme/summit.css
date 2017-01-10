@@ -268,3 +268,10 @@ body {
     font-weight: bold;
     color: #007042;
 }
+
+/***** lists *****/
+
+.reveal .olist, .reveal .ulist {
+    text-align: left;
+    margin-left: 1em;
+}

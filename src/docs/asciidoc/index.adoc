@@ -193,7 +193,7 @@ Not only is that terrible in general, but you just KNOW Billy's going to open th
 
 
 
-== Back to our RDBMS vs inverted indices
+== Back to our (B-Tree) RDBMS vs inverted indices
 
 === With like
 
@@ -242,6 +242,13 @@ SELECT * FROM/Speakers s WHERE
 
 Words could be in any order
 I want the most interesting result first
+
+=== Caveat on RDBMSes
+
+Some have powerful indexing techniques
+Some even full-text related
+
+Tend to have less flexibility
 
 == Indexing
 
@@ -319,6 +326,8 @@ Matching documents: 1, 2 and 4
 == Indexing details
 
 === Transforming sentences into words
+
+Analyzers
 
 1. pre-tokenization
 2. tokenization
@@ -500,8 +509,34 @@ All queries (synonyms, phonetic, n-gram, fuzzy) are a (set of) term queries
 
 === Possible queries
 
-TODO: possible queries?
 Term, wildcard, prefix, fuzzy, phrase, range, boolean, all, spatial, more like this, spell checking
+
+=== PhraseQuery vs shingles
+
+Find exact sentences
+or find words near one another (sloppiness)
+
+[source]
+----
+Laurel and Hardy
+----
+
+PhraseQuery uses positional information
+
+Shingles uses n-grams but per tokens not per chars
+
+[NOTE.speaker]
+--
+Phrase query will find all documents matching all terms,
+Then request the positional information
+then decides whether it matches or not.
+Slop factor is the "edit distance" per word permutation
+
+Shingles is simply the idea of indexing 2 or more words in one token
+
+* faster
+* more space
+--
 
 == Scoring
 
@@ -578,6 +613,9 @@ idf(t) = 1 + log ( "numDocs" / ("numDocs"(t in d) + 1)) 
 === Other scoring
 
 Boosting fields
+Positional information (phrase query)
+Feedback function (external or internal)
+
 Okapi BM25
 Your custom scoring function (or a tweak of)
 
@@ -725,6 +763,13 @@ PForDelta
 By batch of 128 integers, find the smallest number of bits for the biggest int
 And use this as fixed encoding.
 Note that it has a notion of exception for ints bigger than b bits to improve the logic
+
+Most important feature is not too much bigger
+No branch misprediction inthe CPU
+Better pipelining!
+
+When practice make you look at other theories
+Measure measure measure
 --
 
 === Stored fields

@@ -41,7 +41,14 @@ https://emmanuelbernard.com
 
 === Agenda
 
-TODO: TBD
+Why
+B-tree vs inverted index
+Building & using an inverted index
+Indexing
+Querying
+Scoring
+Physical representation
+
 
 == Why do we need inverted index
 
@@ -74,7 +81,16 @@ Less classical
 SELECT * FROM Speakers s WHERE s.bio = 'Open Source'
 ----
 
-B-Tree index
+How is the index built?
+
+[NOTE.speaker]
+--
+Who knows SQL?
+
+Discuss table full scan
+How is the index built?
+Discuss B-tree
+--
 
 [.fundamental]
 == A zoom on B-Trees
@@ -87,6 +103,18 @@ Replace numbers in the example with letters for text.
 
 image::b-tree/b-tree-base.png[]
 
+[NOTE.speaker]
+--
+Complexity
+
+Ask when is access time >> process time
+hard drive (spinning and SSD)
+
+Order 5 tree
+Explain how to read from the tree
+explain data is where the number is
+--
+
 [.fundamental]
 === Splitting leaf nodes
 
@@ -98,6 +126,13 @@ image::b-tree/b-tree-base.png[]
 [.right]
 --
 image::b-tree/b-tree-1.png[]
+--
+
+[NOTE.speaker]
+--
+Overflow
+Split in two "in the middle"
+move the middle up
 --
 
 [.fundamental]
@@ -178,6 +213,13 @@ image::b-tree/b-tree-6.png[]
 image::b-tree/b-tree-7.png[]
 --
 
+[NOTE.speaker]
+--
+Show which node has been changed and which node has not changed
+
+Removing: nodes cannot have 1 entry (except top)
+--
+
 [.fundamental]
 === B+-tree
 
@@ -248,14 +290,20 @@ I want the most interesting result first
 Some have powerful indexing techniques
 Some even full-text related
 
-Tend to have less flexibility
+Tend to have less flexibility than dedicated inverted index tools
 
-== Indexing
+== Building & using an inverted index
 
 === Inverted index to the rescue
 
 Let's not index column values but words
 Let's not query values but words
+
+[NOTE.speaker]
+--
+I will use word, token and term interchangeably.
+Terms are the token + the field name in Lucene
+--
 
 === At indexing time
 
@@ -336,6 +384,14 @@ Analyzers
 Apply the same logic to both document and query content
 Each token is the entry in the inverted index pointing to documents
 
+[NOTE.speaker]
+--
+Using the same analyzer stack for index and query is important
+That's the key the index / the map is accessed by
+
+If not using the same analyzer => won't find a match
+--
+
 === Pre-tokenization
 
 Remove unnecessary characters
@@ -365,6 +421,11 @@ Itwasnotaproblemaspeoplewerereadingoutloudwrittentext
 Infactsplittingwordswasaninventionnecessary
 becausemonksshouldremainsilentandlatinwasnolongertheirnativetongue
 
+[NOTE.speaker]
+--
+Mention that tokenizer does not necesseraly work with the notion of words (Chinese)
+--
+
 === Filtering: where the magic happens
 
 Operate on the stream of tokens
@@ -385,17 +446,23 @@ lowercase: |awesome|peter|
 === Synonyms
 
 When the text mentions a "car" but the research is about "automobile" or "vehicle"
-We need a synonym dictionary.
+We need a synonym dictionary
 
 === Synonym solution
 
 1. Put all synonyms in the index for each word
 2. Use a reference synonym ("automobile" for "car", "compact", "auto", "S.U.V."...)
-3. index normally, use synonyms when building the query
+3. Index normally, use synonyms when building the query
+
+[NOTE.speaker]
+--
+Discuss the pros and cons.
+Esp 3 is more agile (no need to reindex) but more work at query time.
+--
 
 === Words from the same family
 
-"education", "educates", "educated", ...
+`education`, `educates`, `educated`, ...
 That would make for lots of synonyms...
 Let's use a stemming algorithm
 
@@ -412,6 +479,7 @@ Index/query the stem when the word is found
 
 [.right]
 --
+[.french]
 |===
 |word|stem
 
@@ -423,7 +491,13 @@ Index/query the stem when the word is found
 |maintenir|mainten
 |maintenue|mainten
 |maintien|maintien
-|==
+|===
+--
+
+[NOTE.speaker]
+--
+Porter stemming algorithm 1979, one of the oldest and widely used
+Snowball is string processing programming language to build stemming algorithms
 --
 
 === Finding words with typos
@@ -432,6 +506,15 @@ People make mistakes
 In the text or in the query
 
 They make _thaipo_ and other _mystakes_
+
+[NOTE.speaker]
+--
+Ask them for possible approaches
+
+* phonetic
+* ngram
+* fuzzy
+--
 
 === Phonetic algorithm
 
@@ -453,15 +536,15 @@ Phonetic algorithms relatively costly
 Split a word into a sliding window of n characters
 Index each n-gram
 
-low n means more false positives
-high n means less forgiving
-
 [source]
 --
 // building a 3 gram
 mystake: mys yst sta tak ake
 mistake: mis ist sta tak ake
 --
+
+Low n means more false positives
+High n means less forgiving
 
 === Fuzzy search
 
@@ -471,10 +554,19 @@ Based on Damerau-Levenshtein distance
 
 Pure query time operation
 
+[NOTE.speaker]
+--
+Levenshtein: only insert, update, delete
+Damerau: adds transposition of adjacent characters (i.e. swapping)
+swapping: 80% of misspelling
+
+Also used for protein sequence
+--
+
 === Fuzzy search in practice
 
 Compute distance between word and all words in index
-
+or
 Compute a distance state machine for word
 Use it to check specific terms in the index
 
@@ -518,7 +610,7 @@ or find words near one another (sloppiness)
 
 [source]
 ----
-Laurel and Hardy
+"Laurel and Hardy"
 ----
 
 PhraseQuery uses positional information
@@ -547,6 +639,8 @@ image::scoring/xkcd-scoring.png[link="https://xkcd.com/1334/]
 
 [.right]
 --
+Found results but in random order...
+
 We want the most relevant results first
 This is relative
 Several approaches, none perfect
@@ -581,7 +675,7 @@ If document contains multiple terms, it's a better fit.
         tf(t in d)
         * idf(t)^2
         * "t.boost"
-        * "norm"(t,d)
+        * "norm"(d)
     )
 ++++
 
@@ -592,7 +686,7 @@ If document contains multiple terms, it's a better fit.
 
 [stem.small]
 ++++
-"coord"(q,d) = ("matchingTerm"(q))/("nbrOfTerms"(q))
+"coord"(q,d) = ("nbrOfmatchingTerm"(q in d))/("nbrOfTerms"(q))
 ++++
 
 [stem.small]
@@ -602,18 +696,26 @@ tf(t in d) = sqrt(nbrOfTermAppearance(t in d))
 
 [stem.small]
 ++++
-idf(t) = 1 + log ( "numDocs" / ("numDocs"(t in d) + 1)) 
+idf(t) = 1 + log ( "numDocs" / ("numDocs"(t in d) + 1))
 ++++
 
 [stem.small]
 ++++
-"norm"(d) = 1/sqrt( "nbrOfTerms"(t in d) )
+"norm"(d) = 1/sqrt( "nbrOfTerms"(d) )
 ++++
+
+[NOTE.speaker]
+--
+norm:: is field normalization
+t.boost:: is the term query boost
+query normalization factor:: an attempt to normalize a query so that the results from one query may be compared with the results of another
+coord:: nbr of matching terms in a query present in the document / number of terms
+--
 
 === Other scoring
 
 Boosting fields
-Positional information (phrase query)
+Positional (phrase query) or similarity (fuzzy) information
 Feedback function (external or internal)
 
 Okapi BM25
@@ -624,15 +726,31 @@ Your custom scoring function (or a tweak of)
 
 A Lucene example
 
+=== What is Lucene
+
+Search engine library
+Used by many, including
+
+* Solr
+* Elasticsearch
+* Hibernate Search
+
 [.fundamental]
 === B-tree's problems
 
 When you need write throughput
-B-tree require lots of update in place
+B-tree requires lots of updates in place
+
 Sequential reads are much faster than random reads
 
-* in memory
 * on disk
+* kinda also in memory (L1-3 caches)
+
+[NOTE.speaker]
+--
+Updates in place means locking the structure while being updated
+Not ideal for scalability
+--
 
 [.fundamental]
 === Append logs
@@ -649,6 +767,12 @@ Regularly merge files together (e.g. make bigger files)
 
 image::lsm/lsm-base.png[Log-Structured Merge Tree]
 
+[NOTE.speaker]
+--
+Explain how a reads proceeds from in memory to the most recent generation then going back in time
+Mention tombstones for deletes
+--
+
 [.fundamental]
 === LSM characteristics
 
@@ -660,22 +784,41 @@ Read time decays with number of files => merge
 [.fundamental]
 === Lots of ways to improve them
 
-Bloom filter
 Page index in memory
-Levelled compaction
+Bloom filter
+Level-based compaction
+
+[NOTE.speaker]
+--
+Page index in memory:: put a memory efficient index for each entries in each LSM file
+Bloom filter:: probabilistic data structure, false positive but no false negative https://en.wikipedia.org/wiki/Bloom_filter
+--
 
 [.fundamental]
-=== Levelled LSM tree
+=== level-based compaction for LSM tree
 
 image::lsm/lsm-levelled-compaction.png[Log-Structured Merge Tree]
 
+TODO: improve image
+
+[NOTE.speaker]
+--
+keep in memory buffer
+First level is like a LSM we discussed
+Other levels are ranged (by key)
+Compaction from one level to the higher will rebuilt
+https://emmanuelbernard.com/blog/2017/01/10/lsm-tree-with-level-based-compaction/
+
+Show how many files to read
+--
+
 [.fundamental]
-=== Levelled compaction
+=== level-based compaction characteristics
 
 Limit the number of files to read
+One file per level to be consulted
 Compact to the higher levels
 Each file per level has non overlapping key ranges
-One file per level to be consulted
 
 === Lucene's case
 
@@ -727,6 +870,9 @@ top=5
 Thanks to immutable, can be built at merge time
 Thanks to immutable, replace term with its ordinal value and index in a virtual array
 Terms are ordered alphabetically and given an ordinal => alter comparison by ordinal comparison
+
+FST: each arc has a letter and a weight (defaults 0)
+Retrieve the offset in the term dictionary (sparse numbers)
 --
 
 === Term dictionary
@@ -764,6 +910,8 @@ By batch of 128 integers, find the smallest number of bits for the biggest int
 And use this as fixed encoding.
 Note that it has a notion of exception for ints bigger than b bits to improve the logic
 
+Also if you list is not a multiple of 128, they store the extra ones as variable ints (vint) in the end
+
 Most important feature is not too much bigger
 No branch misprediction inthe CPU
 Better pipelining!
@@ -779,6 +927,17 @@ Stored value stored as bocks of 16k and compressed
 
 image::file-structure/stored-fields.png[]
 
+[NOTE.speaker]
+--
+Index is the upper part, all in memory.
+Binary search
+
+Each block of 16k has a mini index at the beginning to go to the right doc
+and each doc is concatenated key/value pairs
+
+Each block is compressed with LZ4
+--
+
 === Deleted documents
 
 You said segments are immutable
@@ -786,8 +945,14 @@ What about deleted documents?
 
 Deleted document file
 
-* 1 bit per doc
-* sparse list of cleared docs
+1. 1 bit per doc
+2. sparse list of cleared docs
+
+[NOTE.speaker]
+--
+Only mutable part of the segment
+And only one way (from present to not present)
+--
 
 === Why oh why such a mess?
 
@@ -800,6 +965,23 @@ But things likely fit in file system cache
 
 Warning: this is a simplified view :)
 
+[NOTE.speaker]
+--
+Field search:
+
+* term dict index is in memory
+* 1 disk seek to reach the term dict
+* 1 disk seek for the posting list
+
+But in practice, term dict might be in file system cache and pulse optim
+Pulse option: a term with 1 document, we don't store the id in posting list but in the term dict inlined
+
+Stored field:
+
+* index in memory
+* one seek to the right block, read 16k
+--
+
 
 == Subjects not covered
 
@@ -811,13 +993,29 @@ Used for aggregation or sorting or faceting
 
 === Faceting
 
-=== Position
+[NOTE.speaker]
+--
+Offer navigation within search results
+Use doc values to efficiently implement it
+--
 
 === Geospatial queries
 
+[NOTE.speaker]
+--
+Several indexing techniques
+hash indexing: make the world into increasingly smaller boxes
+prefix query or not
+--
+
 === Term vector
 
-=== Shingles
+[NOTE.speaker]
+--
+More like this query
+
+Store an inverted index per document id (freq, position)
+--
 
 === And many more things
 
@@ -833,9 +1031,11 @@ Used for aggregation or sorting or faceting
 
 [.small]
 --
-B-tree
+B-tree and LSM
 
 * http://cis.stvincent.edu/html/tutorials/swd/btree/btree.html
+* https://raw.githubusercontent.com/google/leveldb/master/doc/impl.html
+* https://emmanuelbernard.com/blog/2017/01/10/lsm-tree-with-level-based-compaction/
 
 Analyzers
 

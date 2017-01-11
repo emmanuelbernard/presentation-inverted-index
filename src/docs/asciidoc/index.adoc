@@ -1027,6 +1027,15 @@ Store an inverted index per document id (freq, position)
 * Blog https://emmanuelbernard.com[emmanuelbernard.com]
 * Follow me: http://twitter.com/emmanuelbernard[@emmanuelbernard]
 
+=== License
+
+image::intro/by-sa.png[link="http://creativecommons.org/licenses/by-sa/4.0/"]
+This work is licensed under a http://creativecommons.org/licenses/by-sa/4.0/[Creative Commons Attribution-ShareAlike 4.0 International License].
+
+https://xkcd.com[XKCD] images are licensed under http://creativecommons.org/licenses/by-nc/2.5/[Creative Commons Attribution-NonCommercial 2.5 License].
+
+A couple of drawings are copyright of their respective author (linked in the references).
+
 === References
 
 [.small]

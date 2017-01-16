@@ -17,6 +17,13 @@ ifndef::sourcedir[:sourcedir: ../java]
 
 Discuss inverted index technology and fundamentals
 
+You can read the speaker notes by pressing `s`
+
+[NOTE.speaker]
+--
+There you go you can see the speaker's notes
+--
+
 === Emmanuel Bernard
 
 ++++
@@ -712,6 +719,12 @@ query normalization factor:: an attempt to normalize a query so that the results
 coord:: nbr of matching terms in a query present in the document / number of terms
 --
 
+=== Lucene scoring based on
+
+Boolean model
+Vector space model
+Term Frequency / Inverted Document Frequency
+
 === Other scoring
 
 Boosting fields
@@ -734,6 +747,16 @@ Used by many, including
 * Solr
 * Elasticsearch
 * Hibernate Search
+
+[NOTE.speaker]
+--
+history, Doug cutting
+1997-98
+Open Sourced
+Apache (2001)
+Nutch
+Hadoop
+--
 
 [.fundamental]
 === B-tree's problems
@@ -758,6 +781,13 @@ Not ideal for scalability
 Append operations in a file
 Reading requires reading all the log
 
+[NOTE.speaker]
+--
+Most databases have "transaction" logs
+Append only structure
+then processed
+--
+
 [.fundamental]
 === Log-Structured Merge
 
@@ -771,6 +801,7 @@ image::lsm/lsm-base.png[Log-Structured Merge Tree]
 --
 Explain how a reads proceeds from in memory to the most recent generation then going back in time
 Mention tombstones for deletes
+Binary search
 --
 
 [.fundamental]

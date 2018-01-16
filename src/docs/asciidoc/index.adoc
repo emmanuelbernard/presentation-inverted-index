@@ -1,6 +1,6 @@
 = Inverted index
 Emmanuel Bernard
-2016-12-20
+2018-01-12
 :hardbreaks:
 :revnumber: {project-version}
 :example-caption!:
@@ -35,13 +35,13 @@ There you go you can see the speaker's notes
 ++++
 
 Consulting Software Engineer, Red Hat
-Platform Architect
+Chief Architect
 Open Source coder:
 
 * Hibernate {ORM,OGM,Search,Validator}
-* Debezium, Infinispan, Ceylon, ...
+* Debezium, Infinispan, ...
 
-Podcasts: https://lescastcodeurs.com:[Les Cast Codeurs]
+Podcasts: https://lescastcodeurs.com[Les Cast Codeurs]
 
 https://twitter.com/emmanuelbernard[@emmanuelbernard]
 https://emmanuelbernard.com
@@ -116,8 +116,11 @@ Complexity
 
 Ask when is access time >> process time
 hard drive (spinning and SSD)
+https://gist.github.com/jboner/2841832
+RAM 100 ns ; SSD (4K read random) 150 us ; hard drive 10 ms (disk seek)
 
-Order 5 tree
+Order 5 tree (4 entries and 5 leaves max ; 2 entries min
+http://cis.stvincent.edu/html/tutorials/swd/btree/btree.html
 Explain how to read from the tree
 explain data is where the number is
 --
@@ -240,7 +243,11 @@ image::b-tree/xkcd-tree.png[link:"https://www.xkcd.com/835/"]
 
 Not only is that terrible in general, but you just KNOW Billy's going to open the root present first, and then everyone will have to wait while the heap is rebuilt.
 
-
+[NOTE.speaker]
+--
+Reconstruire l'arbre suite à la suppression du cadeau "root".
+Heap: structure où parent est > fils (ou l'inverse) ; veut aussi dire un tas, une tonne.
+--
 
 == Back to our (B-Tree) RDBMS vs inverted indices
 
@@ -282,7 +289,7 @@ Can't anticipate all typos
 
 [source,SQL]
 ----
-SELECT * FROM/Speakers s WHERE
+SELECT * FROM Speakers s WHERE
     s.bio LIKE '%source open%'
     OR s.bio LIKE '%source%'
     OR s.bio LIKE '%open%'
@@ -430,7 +437,7 @@ becausemonksshouldremainsilentandlatinwasnolongertheirnativetongue
 
 [NOTE.speaker]
 --
-Mention that tokenizer does not necesseraly work with the notion of words (Chinese)
+Mention that tokenizer does not necessarily work with the notion of words (Chinese)
 --
 
 === Filtering: where the magic happens
@@ -550,8 +557,17 @@ mystake: mys yst sta tak ake
 mistake: mis ist sta tak ake
 --
 
-Low n means more false positives
+Low n means more false positives 
 High n means less forgiving
+
+[NOTE.speaker]
+--
+Precision = matched true positives / total matched (true and false)
+How many selected items are relevant
+
+Recall = matched true positive / total relevant elements
+How many relevant items are selected?
+--
 
 === Fuzzy search
 
@@ -594,7 +610,10 @@ image::fuzzy/levenstein-nfa-food.png[]
 [NOTE.speaker]
 --
 Read https://julesjacobs.github.io/2015/06/17/disqus-levenshtein-simple-and-fast.html and http://blog.notdot.net/2010/07/Damn-Cool-Algorithms-Levenshtein-Automata
-The image is a Non deterministic Finite Automaton
+The image is a Non deterministic Finite Automaton showing paths to a word close to food up to 2 errors
+
+Use http://julesjacobs.github.io/images/levenshtein/trie.png
+To show how to navigate the index tree and eliminate elements
 --
 
 === You can index the same data in different ways
@@ -670,6 +689,12 @@ Long documents would be favored otherwise
 Coordination factor::
 If document contains multiple terms, it's a better fit.
 
+[NOTE.speaker]
+--
+IDF:: if a term is present in all documents, it's not useful
+field-length norm:: a term present in a short field is more relevant
+--
+
 [%step]
 === TF/IDF Full formulae
 
@@ -725,6 +750,13 @@ Boolean model
 Vector space model
 Term Frequency / Inverted Document Frequency
 
+[NOTE.speaker]
+--
+Boolean model to narrow down the documents matching some terms of the query
+Vector Space to compute the distance between a query and a document
+tf/idf for the weight of a term vs another in relevance
+--
+
 === Other scoring
 
 Boosting fields
@@ -734,6 +766,17 @@ Feedback function (external or internal)
 Okapi BM25
 Your custom scoring function (or a tweak of)
 
+[NOTE.speaker]
+--
+Feedback function: score based on proximity, or better if within price range, vote, random scoring (to bring randomness to results instead of same order each time)
+
+Okapi BM25:
+
+* deals with stop words better (term frequency saturation): very common terms stop boosting after a while (in tf)
+* per field length normalization (vs a general all field length norm)
+** shorter fields like title are no longer boosted compared to long fields
+* tunable in saturation and field length normalisation
+--
 
 == Inverted index physical representation
 
@@ -830,10 +873,9 @@ Bloom filter:: probabilistic data structure, false positive but no false negativ
 
 image::lsm/lsm-levelled-compaction.png[Log-Structured Merge Tree]
 
-TODO: improve image
-
 [NOTE.speaker]
 --
+Advantage, limit number of file read in the worse case
 keep in memory buffer
 First level is like a LSM we discussed
 Other levels are ranged (by key)
@@ -904,6 +946,8 @@ Terms are ordered alphabetically and given an ordinal => alter comparison by ord
 
 FST: each arc has a letter and a weight (defaults 0)
 Retrieve the offset in the term dictionary (sparse numbers)
+http://blog.mikemccandless.com/2010/12/using-finite-state-transducers-in.html
+https://fr.slideshare.net/LucidImagination/weiss-dawid-finite-state-automata-in-lucene
 --
 
 === Term dictionary
@@ -924,6 +968,7 @@ onyms, freq=1, offset=323
 === Posting list
 
 List of document ids
+Variable int encoding
 Encoded as delta of ids (good for variable int encoding)
 
 [source]
@@ -933,9 +978,11 @@ Encoded as delta of ids (good for variable int encoding)
 
 http://www2008.org/papers/pdf/p387-zhangA.pdf[PForDelta] encoding
 Bigger in size but less CPU branch miss prediction
+Also pulse optimization for frequency=1
 
 [NOTE.speaker]
 --
+http://blog.mikemccandless.com/2010/08/lucene-performance-with-pfordelta-codec.html
 PForDelta
 By batch of 128 integers, find the smallest number of bits for the biggest int
 And use this as fixed encoding.
@@ -944,11 +991,13 @@ Note that it has a notion of exception for ints bigger than b bits to improve th
 Also if you list is not a multiple of 128, they store the extra ones as variable ints (vint) in the end
 
 Most important feature is not too much bigger
-No branch misprediction inthe CPU
+No branch misprediction in the CPU
 Better pipelining!
 
 When practice make you look at other theories
 Measure measure measure
+
+Pulsing codec, include docid instead of offset in term dictionary if freq=1 (i.e. 1 document matching)
 --
 
 === Stored fields

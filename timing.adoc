@@ -20,3 +20,26 @@ total time (section time) clock:time - actual total time (actual section time)
 * Subjects not covered I 168 (3) 12:48 - ///
 
 
+
+
+
+Time for section::
+total time (section time) clock:time - actual total time (actual section time)
+
+* Intro I 3 (3) 14h00 - 6
+* Why inverted index I 6 (3) 14h06 - 11 (5)
+* B-Tree II 18 (12) 14h18 - 31 (20)
+* RDBMS vs Inverted index II 30 (12) 14h30
+* Building and using inverted index I 33 (3) 14h33 - 36 (4)
+* Indexing details IIII 81 (48) 15h21 - 76 (40)
+** Fuzzy II (12)
+* Query II 93 (12) 15h31 - 89 (15)
+* Pause
+* Scoring III 117 (24) 15h57 - 119 (30)
+** Scoring formulae (12)
+* Physical representation
+** LSM III 141 (24) 16h21 - 139 (20)
+** Lucene structure III 165 (24) 16h45 - stopped at posting list 149 (10)
+* Subjects not covered I 168 (3) 16:48 - ///
+
+
